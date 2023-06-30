@@ -1,7 +1,6 @@
 import { body, validationResult } from 'express-validator';
 
 export const UserRegisterDto = [
-  body('id').notEmpty().withMessage('ID is required'),
   body('email').isEmail().withMessage('Must be a valid email'),
   body('name').isString().withMessage('Name must be a string'),
   body('lastname').isString().withMessage('Last name must be a string'),

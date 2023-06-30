@@ -5,11 +5,12 @@ import { SaveUser } from '@/core/User/application/repositoryImplementations/Save
 import { Request, Response, Router } from 'express';
 import { PrismaProvider } from '../PrismaProvider';
 import { ResponseProvider } from '@/shared/providers/Response/infraestructure/Response';
+import { UserRegisterDto } from '@/core/User/infraestructure/DTOs/UserRegisterDto';
 
 const repository = PrismaUserRepository(PrismaProvider)
 
 const saveUserImp = SaveUser(repository)
 
 export const register = (router: Router) => {
-  router.post('/register', (req: Request, res: Response) => UserRegisterUserCase(ResponseProvider(res), saveUserImp)(req));
+  router.post('/register', UserRegisterDto, (req: Request, res: Response) => UserRegisterUserCase(ResponseProvider(res), saveUserImp)(req));
 };
