@@ -1,4 +1,11 @@
 import { consoleLogger as ConsoleLogger } from "./../shared/providers/Logger/infraestructure/ConsoleLogger";
-import { setupApp } from "./config/app";
+import { ApplicationProvider } from "./providers/ApplicationProvider";
 
-setupApp(ConsoleLogger)();
+import('tsconfig-paths').then(({ register }) => {
+    register({
+        baseUrl: __dirname,
+        paths: { '@/*': ['*'] },
+        addMatchAll: false,
+    });
+})
+.then(() => ApplicationProvider(ConsoleLogger)());
