@@ -1,5 +1,5 @@
-import { consoleLogger as ConsoleLogger } from "./../shared/providers/Logger/infraestructure/ConsoleLogger";
-import { ApplicationProvider } from "./providers/ApplicationProvider";
+import { consoleLogger as ConsoleLogger } from "./shared/providers/Logger/infraestructure/ConsoleLogger";
+import { ApplicationProvider } from "./main/providers/ApplicationProvider";
 
 import('tsconfig-paths').then(({ register }) => {
     register({

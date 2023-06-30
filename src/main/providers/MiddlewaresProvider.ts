@@ -1,5 +1,5 @@
 import { Application } from 'express';
-import { ILogger } from "./../../shared/providers/Logger/domain/ILogger";
+import { ILogger } from "@/shared/providers/Logger/domain/ILogger";
 import bodyParser from "body-parser";
 import helmet from 'helmet';
 import cors from 'cors';
