@@ -48,7 +48,7 @@ jobs:
         run: npx prisma generate
 
       - name: 🔄 Actualizando esquema de base de datos
-        run: npx prisma db push --preview-feature
+        run: npx prisma db push -- --preview-feature
 
       - name: 🧪 Corriendo Todos los Test
         run: npm run test --detectOpenHandles
