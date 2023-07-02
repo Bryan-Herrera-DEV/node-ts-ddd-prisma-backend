@@ -55,3 +55,10 @@ jobs:
 
       - name: 💄 Estilo de codigo
         run: npm run style
+        
+      - name: 🌐 Enviando Reporte de Cobertura a Codacy
+        uses: codacy/codacy-coverage-reporter-action@v1
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: ./coverage/lcov.info
