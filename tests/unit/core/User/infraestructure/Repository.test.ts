@@ -2,11 +2,11 @@ import { PrismaUserRepository } from "@/core/User/infraestructure/repositorys/Pr
 import { PrismaClient, Prisma } from "@prisma/client";
 
 // Mocking uuidv4()
-jest.mock('uuid', () => ({
-  v4: jest.fn(() => 'abc123')
+jest.mock("uuid", () => ({
+  v4: jest.fn(() => "abc123")
 }));
 
-describe('PrismaUserRepository', () => {
+describe("PrismaUserRepository", () => {
   let client: PrismaClient;
   let userRepository;
 
@@ -21,7 +21,7 @@ describe('PrismaUserRepository', () => {
     userRepository = PrismaUserRepository(client);
   });
 
-  it('should call PrismaClient.user.create with correct data', async () => {
+  it("should call PrismaClient.user.create with correct data", async () => {
     const mockUser = {
       name: "test",
       email: "test@test.com",
@@ -33,7 +33,7 @@ describe('PrismaUserRepository', () => {
 
     const expectedCreateArgs: Prisma.UserCreateArgs = {
       data: {
-        id: 'abc123',
+        id: "abc123",
         name: mockUser.name,
         email: mockUser.email,
         lastname: mockUser.lastname,

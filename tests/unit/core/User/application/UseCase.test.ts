@@ -1,7 +1,7 @@
-import { UserRegisterUserCase } from '@/core/User/application/UseCases/UserRegisterUserCase';
-import { StatusCodes } from 'http-status-codes';
+import { UserRegisterUserCase } from "@/core/User/application/UseCases/UserRegisterUserCase";
+import { StatusCodes } from "http-status-codes";
 
-describe('UserRegisterUserCase', () => {
+describe("UserRegisterUserCase", () => {
   let ResponseLoggerMock: jest.Mock;
   let saveUserImpMock: jest.Mock;
 
@@ -11,12 +11,12 @@ describe('UserRegisterUserCase', () => {
     saveUserImpMock = jest.fn();
   });
 
-  it('should save the user and log the response', async () => {
+  it("should save the user and log the response", async () => {
     // Crear el caso de uso con los mocks
     const UserRegister = UserRegisterUserCase(ResponseLoggerMock, saveUserImpMock);
 
     // Simular una petición
-    const mockReq: any = {
+    const mockReq: unknown = {
       body: {
         name: "test",
         email: "test@test.com",
@@ -31,11 +31,11 @@ describe('UserRegisterUserCase', () => {
     expect(saveUserImpMock).toHaveBeenCalledWith(expect.objectContaining(mockReq.body));
 
     // Verificar que ResponseLoggerMock fue llamado con los argumentos correctos
-    expect(ResponseLoggerMock).toHaveBeenCalledWith(StatusCodes.CREATED, 'User created', null);
+    expect(ResponseLoggerMock).toHaveBeenCalledWith(StatusCodes.CREATED, "User created", null);
   });
 
-  it('should log the error if an exception is thrown', async () => {
-    const error = new Error('test error');
+  it("should log the error if an exception is thrown", async () => {
+    const error = new Error("test error");
 
     // Crear el caso de uso con los mocks
     const UserRegister = UserRegisterUserCase(ResponseLoggerMock, saveUserImpMock);
@@ -44,7 +44,7 @@ describe('UserRegisterUserCase', () => {
     saveUserImpMock.mockRejectedValueOnce(error);
 
     // Simular una petición
-    const mockReq: any = {
+    const mockReq: unknown = {
       body: {
         name: "test",
         email: "test@test.com",

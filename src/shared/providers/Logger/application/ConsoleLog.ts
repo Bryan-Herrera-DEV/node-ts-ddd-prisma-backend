@@ -8,27 +8,27 @@ const LogType = {
 };
 
 const colorCodes = {
-    RESET: '\x1b[0m',
-    BLUE: '\x1b[34m',
-    GREEN: '\x1b[32m',
-    YELLOW: '\x1b[33m',
-    RED: '\x1b[31m',
+    RESET: "\x1b[0m",
+    BLUE: "\x1b[34m",
+    GREEN: "\x1b[32m",
+    YELLOW: "\x1b[33m",
+    RED: "\x1b[31m",
 };
 
 export const consoleLoggerImp: IConsoleLoggerImp = (type, message) => {
     let color = colorCodes.RESET;
 
     switch (type) {
-        case 'LOG':
+        case "LOG":
             color = colorCodes.BLUE;
             break;
-        case 'INFO':
+        case "INFO":
             color = colorCodes.GREEN;
             break;
-        case 'WARN':
+        case "WARN":
             color = colorCodes.YELLOW;
             break;
-        case 'ERROR':
+        case "ERROR":
             color = colorCodes.RED;
             break;
     }

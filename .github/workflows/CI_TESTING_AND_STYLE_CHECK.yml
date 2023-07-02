@@ -1,0 +1,45 @@
+name: Testing Proyect
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build:
+    name: Estilo de código y pruebas
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: dev
+          POSTGRES_PASSWORD: devtest
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        # Health check
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.12.1
+          cache: npm
+
+      - name: 📦 Instalando Dependencias
+        run: npm ci
+
+      - name: 🧪 Corriendo Todos los Test
+        run: npm run test
+
+      - name: 💄 Estilo de codigo
+        run: npm run style

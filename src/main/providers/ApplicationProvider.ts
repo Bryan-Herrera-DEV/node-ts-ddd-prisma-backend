@@ -1,7 +1,7 @@
 import express, { Express } from "express";
 import { ILogger } from "@/shared/providers/Logger/domain/ILogger";
 import { HttpMiddlewareProvider } from "./MiddlewaresProvider";
-import Router from 'express-promise-router';
+import Router from "express-promise-router";
 import { init as initLocals } from "./LocalsProvider";
 import { RegisterRoutes } from "./RouterProvider";
 
@@ -31,10 +31,10 @@ export const stopServer = async (): Promise<void> => {
     await new Promise<void>((resolve, reject) => {
       httpServer.close((err) => {
         if (err) {
-          console.error('Error al detener el servidor Express:', err);
+          console.error("Error al detener el servidor Express:", err);
           reject(err);
         } else {
-          console.log('Servidor Express detenido');
+          console.log("Servidor Express detenido");
           resolve();
         }
       });
