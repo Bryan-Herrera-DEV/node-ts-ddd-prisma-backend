@@ -42,7 +42,13 @@ jobs:
           cache: npm
 
       - name: 📦 Instalando Dependencias
-        run: npm ci
+        run: npm i
+        
+      - name: ⚙️ Generando cliente Prisma
+        run: npx prisma generate
+
+      - name: 🔄 Actualizando esquema de base de datos
+        run: npx prisma db push --preview-feature
 
       - name: 🧪 Corriendo Todos los Test
         run: npm run test
