@@ -16,7 +16,10 @@
       <a align="center" href="https://www.npmjs.com/package/@prisma/client"></a>
         <img alt="GitHub package.json dependency version (prod)" src="https://img.shields.io/github/package-json/dependency-version/bryan-herrera-dev/node-ts-ddd-prisma-backend/@prisma/client">
       </a>
-      <a href="https://github.com/Bryan-Herrera-DEV/node-ts-ddd-prisma-backend/blob/main/README.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" /></a>
+      <a href="https://github.com/Bryan-Herrera-DEV/node-ts-ddd-prisma-backend/blob/main/CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" /></a>
+      <a align="center" href="https://github.com/Bryan-Herrera-DEV/node-ts-ddd-prisma-backend/blob/main/LICENSE.md">
+        <img alt="License" src="https://img.shields.io/github/license/bryan-herrera-dev/node-ts-ddd-prisma-backend.svg">
+      </a>
     </div>
 </div>
 
