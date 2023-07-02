@@ -4,25 +4,32 @@ import { HttpMiddlewareProvider } from "./MiddlewaresProvider";
 import Router from "express-promise-router";
 import { init as initLocals } from "./LocalsProvider";
 import { RegisterRoutes } from "./RouterProvider";
-
+import ErrorHandlerProvider from "./ErrorHandlerProvider";
 let httpServer: Express;
 
-export const ApplicationProvider = (logger: ILogger) => async (): Promise<Express> => {
-    const app = express();
-    const router = Router();
+export const ApplicationProvider = (logger: ILogger, inTest = false) => (): Promise<Express> => {
+  const app = express();
+  const router = Router();
 
-    initLocals(app);
-    await HttpMiddlewareProvider(app, logger)();
+  initLocals(app);
+  HttpMiddlewareProvider(app, logger)();
 
-    app.use(router);
-    RegisterRoutes(router);
+  app.use(router);
+  RegisterRoutes(router);
 
-    const port = process.env.PORT;
+  app.use(ErrorHandlerProvider.syntaxErrorHandler());
+  app.use(ErrorHandlerProvider.notFoundHandler());
+  app.use(ErrorHandlerProvider.clientErrorHandler());
+  app.use(ErrorHandlerProvider.errorHandler());
+
+  const port = process.env.PORT;
+  if (!inTest) {
     httpServer = app.listen(
-        port,
-        () => logger.info(`Server is running at http://localhost:${port}/`)
+      port,
+      () => logger.info(`Server is running at http://localhost:${port}/`)
     );
-    return app;
+  }
+  return app;
 };
 
 export const stopServer = async (): Promise<void> => {

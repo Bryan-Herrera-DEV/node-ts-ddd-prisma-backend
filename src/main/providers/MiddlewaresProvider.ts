@@ -5,7 +5,7 @@ import helmet from "helmet";
 import cors from "cors";
 import compress from "compression";
 
-export const HttpMiddlewareProvider = (express: Application, logger: ILogger) => async (): Application => {
+export const HttpMiddlewareProvider = (express: Application, logger: ILogger) => (): Application => {
     logger.info("Loading HTTP middlewares...");
     // body-parser
     express.use(bodyParser.urlencoded({

@@ -13,7 +13,7 @@
     "curly": "error",
     "no-empty": "error",
     "@typescript-eslint/no-explicit-any": ["error", { "fixToUnknown": true }],
-    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "semi": ["error", "always"],
     "no-trailing-spaces": ["error", { "ignoreComments": true }],
     "keyword-spacing": ["error", { "before": true }],
