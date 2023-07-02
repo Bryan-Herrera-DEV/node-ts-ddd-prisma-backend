@@ -14,7 +14,7 @@ jobs:
   build:
     name: Estilo de código y pruebas
     runs-on: ubuntu-latest
-     env: # <----- Aquí es donde definirías las variables de entorno
+    env:
       PORT: 3001
       NODE_ENV: dev
       APP_SECRET: "-QV.LlñvjQñÑñ8;5ñ#jyLñl;sY;jlyy8-;DjJYlDdddÑ@2Q;gd6;53d88;583@299QQ@Y3yqlÑqD+y"
