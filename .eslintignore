@@ -1,3 +1,2 @@
 tests/
 src/main/providers/RouterProvider.ts
-src/core/User/domain/IUserRepository.ts
