@@ -1,7 +1,7 @@
 import { ResponseProvider } from "@/shared/providers/Response/infraestructure/Response";
 
 const mockResponse = () => {
-  const res: unknown = {};
+  const res: any = {};
   res.status = jest.fn().mockReturnValue(res);
   res.json = jest.fn().mockReturnValue(res);
   return res;

@@ -41,3 +41,20 @@ export const stopServer = async (): Promise<void> => {
     });
   }
 };
+
+export const stopWithHttpServer = async (httpServerRev): Promise<void> => {
+  // Detener el servidor Express si está en ejecución
+  if (httpServerRev) {
+    await new Promise<void>((resolve, reject) => {
+      httpServerRev.close((err) => {
+        if (err) {
+          console.error("Error al detener el servidor Express:", err);
+          reject(err);
+        } else {
+          console.log("Servidor Express detenido");
+          resolve();
+        }
+      });
+    });
+  }
+};

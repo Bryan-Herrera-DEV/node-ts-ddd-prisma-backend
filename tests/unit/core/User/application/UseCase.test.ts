@@ -16,7 +16,7 @@ describe("UserRegisterUserCase", () => {
     const UserRegister = UserRegisterUserCase(ResponseLoggerMock, saveUserImpMock);
 
     // Simular una petición
-    const mockReq: unknown = {
+    const mockReq = {
       body: {
         name: "test",
         email: "test@test.com",
@@ -56,6 +56,6 @@ describe("UserRegisterUserCase", () => {
     await UserRegister(mockReq);
 
     // Verificar que ResponseLoggerMock fue llamado con los argumentos correctos
-    expect(ResponseLoggerMock).toHaveBeenCalledWith(StatusCodes.INTERNAL_SERVER_ERROR, error.message, null);
+    expect(ResponseLoggerMock).toHaveBeenCalledWith(StatusCodes.BAD_REQUEST, error.message, null);
   });
 });

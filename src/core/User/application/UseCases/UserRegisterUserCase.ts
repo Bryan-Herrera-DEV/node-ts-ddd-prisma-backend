@@ -9,7 +9,7 @@ export const UserRegisterUserCase: TUserRegisterUserCase = (ResponseLogger, save
     ResponseLogger(StatusCodes.CREATED, "User created", null);
   } catch (error) {
     if (error instanceof Error) {
-      ResponseLogger(StatusCodes.INTERNAL_SERVER_ERROR, error.message, null);
+      ResponseLogger(StatusCodes.BAD_REQUEST, error.message, null);
     }
   }
 };
