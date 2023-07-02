@@ -1,4 +1,4 @@
 import { IResponse } from "../domain/IResponse";
 export const ResponseProvider: IResponse = (res) => async <T = null>(statusCode, message, data: T) => {
-    res.status(statusCode).json({ message, data });
+    res.status(statusCode).json({ code:statusCode, message, data });
 };

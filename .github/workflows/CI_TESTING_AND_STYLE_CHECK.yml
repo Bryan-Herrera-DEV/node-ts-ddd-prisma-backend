@@ -1,0 +1,57 @@
+name: Testing Proyect
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build:
+    name: Estilo de código y pruebas
+    runs-on: ubuntu-latest
+    env:
+      PORT: 3001
+      NODE_ENV: dev
+      APP_SECRET: "-QV.LlñvjQñÑñ8;5ñ#jyLñl;sY;jlyy8-;DjJYlDdddÑ@2Q;gd6;53d88;583@299QQ@Y3yqlÑqD+y"
+      API_PREFIX: api
+      DATABASE_URL: "postgresql://dev:devtest@localhost:5432/postgres?schema=public"
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: dev
+          POSTGRES_PASSWORD: devtest
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        # Health check
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.12.1
+          cache: npm
+
+      - name: 📦 Instalando Dependencias
+        run: npm i
+        
+      - name: ⚙️ Generando cliente Prisma
+        run: npx prisma generate
+
+      - name: 🔄 Actualizando esquema de base de datos
+        run: npx prisma db push --preview-feature
+
+      - name: 🧪 Corriendo Todos los Test
+        run: npm run test
+
+      - name: 💄 Estilo de codigo
+        run: npm run style
