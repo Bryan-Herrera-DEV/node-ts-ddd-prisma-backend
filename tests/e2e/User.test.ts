@@ -2,7 +2,7 @@ import request from "supertest";
 import { ApplicationProvider } from "@/main/providers/ApplicationProvider";
 import { consoleLogger } from "@/shared/providers/Logger/infraestructure/ConsoleLogger";
 
-const app = ApplicationProvider(consoleLogger)();
+const app = ApplicationProvider(consoleLogger, true)();
 
 describe("POST /register", () => {
 
