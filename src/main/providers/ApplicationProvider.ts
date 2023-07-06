@@ -5,11 +5,17 @@ import Router from "express-promise-router";
 import { init as initLocals } from "./LocalsProvider";
 import { RegisterRoutes } from "./RouterProvider";
 import ErrorHandlerProvider from "./ErrorHandlerProvider";
+import passport from "passport";
+
 let httpServer: Express;
 
 export const ApplicationProvider = (logger: ILogger, inTest = false) => (): Promise<Express> => {
   const app = express();
   const router = Router();
+
+  require('./../../shared/PassportProvider/infraestructure/passportConfig')
+  app.use(passport.initialize())
+
 
   initLocals(app);
   HttpMiddlewareProvider(app, logger)();
@@ -21,6 +27,7 @@ export const ApplicationProvider = (logger: ILogger, inTest = false) => (): Prom
   app.use(ErrorHandlerProvider.notFoundHandler());
   app.use(ErrorHandlerProvider.clientErrorHandler());
   app.use(ErrorHandlerProvider.errorHandler());
+
 
   const port = process.env.PORT;
   if (!inTest) {

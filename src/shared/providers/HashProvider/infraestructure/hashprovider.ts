@@ -1,15 +1,15 @@
-import { TCompare, THash } from "../domain/IHashProvider";
+import { TCompareProvider, THashProvider } from "../domain/IHashProvider";
 
 const saltRounds = 10;
 
-export const hashProvider = (hash: THash) => async (password: string): Promise<string> => {
+export const hashProvider: THashProvider = (hash) => async (password) => {
   return await hash(password, saltRounds);
 };
 
-export const compareProvider = (compare: TCompare) => async (password: string, hash: string | undefined): Promise<boolean> => {
-  if (!hash) {
+export const compareProvider: TCompareProvider = (compare) => async (toComparePassword, encryptedPassword) => {
+  if (!toComparePassword || !encryptedPassword) {
     return false;
   }
-  return await compare(password, hash);
+  return await compare(toComparePassword, encryptedPassword);
 };
 

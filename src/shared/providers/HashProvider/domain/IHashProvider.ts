@@ -4,4 +4,5 @@ export type THash = (data: string | Buffer, saltOrRounds: string | number) => Pr
 export type THashProviderImp = (password: string) => Promise<string>
 export type THashProvider = (hash: THash) => THashProviderImp
 
-// export type TCompareProvider = (hash: THash) => (password: string) => Promise<string>
+export type TComapreProviderImp = (toComparePassword: string, encryptedPassword: string) => Promise<boolean>
+export type TCompareProvider = (hash: TCompare) => TComapreProviderImp
