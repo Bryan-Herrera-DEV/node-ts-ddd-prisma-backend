@@ -18,5 +18,5 @@ export const PrismaUserRepository = (
       },
     });
     return nUser;
-  },
+  }
 });

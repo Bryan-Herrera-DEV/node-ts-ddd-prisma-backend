@@ -17,6 +17,7 @@
   "description": "",
   "dependencies": {
     "@prisma/client": "^4.16.2",
+    "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
@@ -33,6 +34,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.13",
     "@types/jest": "^29.2.2",
     "@typescript-eslint/eslint-plugin": "^5.60.1",

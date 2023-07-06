@@ -5,10 +5,12 @@ import { SaveUser } from "@/core/User/application/repositoryImplementations/Save
 import { Request, Response, Router } from "express";
 import { PrismaProvider } from "../PrismaProvider";
 import { ResponseProvider } from "@/shared/providers/Response/infraestructure/Response";
+import { hashProvider } from "@/shared/providers/HashProvider/infraestructure/hashprovider";
 import { UserRegisterDto } from "@/core/User/infraestructure/DTOs/UserRegisterDto";
 
-const repository = PrismaUserRepository(PrismaProvider);
+import { hash } from "bcrypt";
 
+const repository = PrismaUserRepository(PrismaProvider);
 const saveUserImp = SaveUser(repository);
 
 export const register = (router: Router) => {
@@ -40,5 +42,5 @@ export const register = (router: Router) => {
       throw new CustomError("Test custom error");
     });
   }
-  router.post("/register", UserRegisterDto, (req: Request, res: Response) => UserRegisterUserCase(ResponseProvider(res), saveUserImp)(req));
+  router.post("/register", UserRegisterDto, (req: Request, res: Response) => UserRegisterUserCase(ResponseProvider(res), hashProvider(hash), saveUserImp)(req));
 };
