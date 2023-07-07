@@ -1,6 +1,5 @@
 import { TSaveUser } from "../../domain/IUserApplicationImplementations";
 
-export const SaveUser: TSaveUser = (userRepository) => async (user) => {
-    return await userRepository.save(user);
+export const SaveUser: TSaveUser = (repository) => async (user) => {
+    return await repository.save(user);
 };
-

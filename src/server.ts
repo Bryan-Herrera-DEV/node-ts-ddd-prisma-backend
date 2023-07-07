@@ -8,4 +8,4 @@ import("tsconfig-paths").then(({ register }) => {
         addMatchAll: false,
     });
 })
-.then(() => ApplicationProvider(ConsoleLogger)());
+.then(() => {ApplicationProvider(ConsoleLogger)();});

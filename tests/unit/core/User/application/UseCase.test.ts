@@ -1,5 +1,9 @@
 import { UserRegisterUserCase } from "@/core/User/application/UseCases/UserRegisterUserCase";
 import { StatusCodes } from "http-status-codes";
+import { hashProvider } from "@/shared/providers/HashProvider/infraestructure/hashprovider";
+import { hash } from "bcrypt";
+
+import { Request } from "express";
 
 describe("UserRegisterUserCase", () => {
   let ResponseLoggerMock: jest.Mock;
@@ -13,7 +17,7 @@ describe("UserRegisterUserCase", () => {
 
   it("should save the user and log the response", async () => {
     // Crear el caso de uso con los mocks
-    const UserRegister = UserRegisterUserCase(ResponseLoggerMock, saveUserImpMock);
+    const UserRegister = UserRegisterUserCase(ResponseLoggerMock, hashProvider(hash), saveUserImpMock);
 
     // Simular una petición
     const mockReq = {
@@ -25,7 +29,7 @@ describe("UserRegisterUserCase", () => {
       }
     };
 
-    await UserRegister(mockReq);
+    await UserRegister(mockReq as unknown as Request);
 
     // Verificar que saveUserImpMock fue llamado con los datos correctos
     expect(saveUserImpMock).toHaveBeenCalledWith(expect.objectContaining(mockReq.body));
@@ -38,7 +42,7 @@ describe("UserRegisterUserCase", () => {
     const error = new Error("test error");
 
     // Crear el caso de uso con los mocks
-    const UserRegister = UserRegisterUserCase(ResponseLoggerMock, saveUserImpMock);
+    const UserRegister = UserRegisterUserCase(ResponseLoggerMock, hashProvider(hash), saveUserImpMock);
 
     // Hacer que saveUserImpMock lance una excepción
     saveUserImpMock.mockRejectedValueOnce(error);
@@ -53,7 +57,7 @@ describe("UserRegisterUserCase", () => {
       }
     };
 
-    await UserRegister(mockReq);
+    await UserRegister(mockReq as unknown as Request);
 
     // Verificar que ResponseLoggerMock fue llamado con los argumentos correctos
     expect(ResponseLoggerMock).toHaveBeenCalledWith(StatusCodes.BAD_REQUEST, error.message, null);
