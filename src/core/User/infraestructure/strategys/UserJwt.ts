@@ -18,7 +18,7 @@ export const UserJwt = (UserFind: FindUser) => new JwtStrategy(userOptions, asyn
         value: jwtPayload.id,
         operator: operatorEnum.EQUAL
       }
-    ])
+    ]);
     if (user) {
       return done(null, user);
     }

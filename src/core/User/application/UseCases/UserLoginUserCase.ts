@@ -11,22 +11,21 @@ export const UserLoginUserCase: TUserLoginUserCase = (ResponserProvider, compare
         value: req.body.email,
         operator: operatorEnum.EQUAL
       }
-    ])
+    ]);
     if (!user) {
       return ResponserProvider(404, "User not found", null);
     }
-    const isMatch = await compare(req.body.password, user!.password);
+    const isMatch = await compare(req.body.password, user.password);
 
     if (!isMatch) {
       return ResponserProvider(400, "Invalid credentials", null);
     }
-    const { password, ...rest } = user!;
-    const token = await createJwt<Nullable<IUserBase>>(rest);
+    const token = await createJwt<Nullable<IUserBase>>(user);
 
-    return ResponserProvider(200, "User logged", {...rest, token});
+    return ResponserProvider(200, "User logged", { user, token });
   } catch (error) {
     if (error instanceof Error) {
       return ResponserProvider(400, error.message, null);
     }
   }
-}
+};

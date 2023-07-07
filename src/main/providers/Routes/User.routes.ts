@@ -40,7 +40,10 @@ export const register = (router: Router) => {
   router.post("/login", UserLoginDto, (req: Request, res: Response) => UserCasesContainer.userLoginUserCase(req, res));
   router.get("/test-two", async (req: Request, res: Response, next: NextFunction) => {
     passportUserMiddleware(req, res, next);
-    const user = await decode(req.headers.authorization!.split(" ")[1]);
+    if (!req.headers.authorization) {
+      return res.status(401).send({ message: "Unauthorized" });
+    }
+    const user = await decode(req.headers.authorization.split(" ")[1]);
     res.status(200).json(user);
-  })
+  });
 };

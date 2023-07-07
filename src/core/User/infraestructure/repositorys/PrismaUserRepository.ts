@@ -32,7 +32,7 @@ export const PrismaUserRepository = (
   },
 });
 
-const isFilter = (obj: any): obj is Filter<IUserBase> =>
+const isFilter = (obj: unknown): obj is Filter<IUserBase> =>
   typeof obj === "object" &&
   obj !== null &&
   typeof obj.field === "string" &&

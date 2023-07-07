@@ -14,8 +14,8 @@ export const ApplicationProvider = (logger: ILogger, inTest = false) => (): Expr
   const app = express();
   const router = Router();
 
-  require('./../../shared/PassportProvider/infraestructure/passportConfig')
-  app.use(passport.initialize())
+  require("./../../shared/PassportProvider/infraestructure/passportConfig");
+  app.use(passport.initialize());
 
 
   initLocals(app);

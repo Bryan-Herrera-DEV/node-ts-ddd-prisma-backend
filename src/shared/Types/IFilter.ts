@@ -3,7 +3,7 @@ export const enum operatorEnum {
 }
 
 export interface Filter<T> {
-  field: keyof  T;
+  field: keyof T;
   value: string;
   operator: operatorEnum;
 }
