@@ -21,6 +21,7 @@
     "space-infix-ops": ["error", { "int32Hint": false }],
     "object-curly-spacing": ["error", "always"],
     "no-multi-spaces": "error",
-    "comma-spacing": ["error", { "before": false, "after": true }]
+    "comma-spacing": ["error", { "before": false, "after": true }],
+    "@typescript-eslint/no-non-null-assertion": "off"
   }
 }

@@ -11,10 +11,10 @@ export const PrismaUserRepository = (
     const nUser = client.user.create({
       data: {
         id: uuidv4(),
-        name: user.name || "default name",
-        email: user.email || "default email",
-        lastname: user.lastname || "default lasname",
-        password: user.password || "default password",
+        name: user.name,
+        email: user.email,
+        lastname: user.lastname,
+        password: user.password,
         createdAt: user.createdAt.toISOString() || new Date().toISOString(),
         updatedAt: user.updatedAt.toISOString() || new Date().toISOString(),
       },
@@ -32,7 +32,7 @@ export const PrismaUserRepository = (
   },
 });
 
-const isFilter = (obj: unknown): obj is Filter<IUserBase> =>
+const isFilter = (obj: Filter<IUserBase>): obj is Filter<IUserBase> =>
   typeof obj === "object" &&
   obj !== null &&
   typeof obj.field === "string" &&

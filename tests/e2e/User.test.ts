@@ -68,7 +68,12 @@ describe("POST /login", () => {
       });
     expect(response.status).toBe(400); // Espera un estado HTTP 400 (BAD REQUEST)
   });
-
+  it("should fail to login user with invalid params", async () => {
+    const response = await request(app)
+      .post("/login")
+      .send();
+    expect(response.status).toBe(400); // Espera un estado HTTP 400 (BAD REQUEST)
+  });
   it("should fail to find user", async () => {
     const response = await request(app)
       .post("/login")

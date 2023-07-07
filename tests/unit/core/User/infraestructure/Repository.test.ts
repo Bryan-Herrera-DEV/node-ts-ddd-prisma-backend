@@ -47,4 +47,12 @@ describe("PrismaUserRepository", () => {
 
     expect(client.user.create).toHaveBeenCalledWith(expectedCreateArgs);
   });
+
+  it("should call PrismaClient.user.create with invalid data", async () => {
+    const invalidCriteria = [{ invalid: "invalid" }];
+
+    await expect(userRepository.find(invalidCriteria)).rejects.toThrowError(
+      "Invalid input: criteria must be an array of Filters"
+    );
+  });
 });

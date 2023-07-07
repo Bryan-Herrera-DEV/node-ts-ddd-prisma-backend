@@ -8,7 +8,10 @@ import ErrorHandlerProvider from "./ErrorHandlerProvider";
 import passport from "passport";
 import http from "http";
 
-let httpServer: http.Server;
+export const server = {
+  httpServer: null as http.Server | null,
+};
+
 
 export const ApplicationProvider = (logger: ILogger, inTest = false) => (): Express => {
   const app = express();
@@ -32,7 +35,7 @@ export const ApplicationProvider = (logger: ILogger, inTest = false) => (): Expr
 
   const port = process.env.PORT;
   if (!inTest) {
-    httpServer = app.listen(
+    server.httpServer = app.listen(
       port,
       () => logger.info(`Server is running at http://localhost:${port}/`)
     );
@@ -42,9 +45,9 @@ export const ApplicationProvider = (logger: ILogger, inTest = false) => (): Expr
 
 export const stopServer = async (): Promise<void> => {
   // Detener el servidor Express si está en ejecución
-  if (httpServer) {
+  if (server.httpServer) {
     await new Promise<void>((resolve, reject) => {
-      httpServer.close((err) => {
+      server.httpServer!.close((err) => {
         if (err) {
           console.error("Error al detener el servidor Express:", err);
           reject(err);

@@ -7,9 +7,6 @@ export const hashProvider: THashProvider = (hash) => async (password) => {
 };
 
 export const compareProvider: TCompareProvider = (compare) => async (toComparePassword, encryptedPassword) => {
-  if (!toComparePassword || !encryptedPassword) {
-    return false;
-  }
   return await compare(toComparePassword, encryptedPassword);
 };
 

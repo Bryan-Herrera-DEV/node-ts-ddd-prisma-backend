@@ -9,7 +9,6 @@ export const passportUserMiddleware = passport.authenticate("jwt-user", { sessio
   if (err || !user) {
     throw new UnauthorizedError("UnauthorizedError");
   }
-  return user;
 });
 
 export default passport;
