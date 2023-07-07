@@ -15,7 +15,7 @@ describe("ResponseProvider", () => {
     const data = { foo: "bar" };
 
     const responseFunction = ResponseProvider(res);
-    await responseFunction(statusCode, message, data);
+    responseFunction(statusCode, message, data);
 
     expect(res.status).toHaveBeenCalledWith(statusCode);
     expect(res.json).toHaveBeenCalledWith({ code: statusCode, message, data });

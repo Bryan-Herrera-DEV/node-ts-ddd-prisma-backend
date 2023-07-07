@@ -20,9 +20,29 @@
       <a align="center" href="https://github.com/Bryan-Herrera-DEV/node-ts-ddd-prisma-backend/blob/main/LICENSE.md">
         <img alt="License" src="https://img.shields.io/github/license/bryan-herrera-dev/node-ts-ddd-prisma-backend.svg">
       </a>
+      <a href="https://deepscan.io/dashboard#view=project&tid=21638&pid=25046&bid=776814"><img src="https://deepscan.io/api/teams/21638/projects/25046/branches/776814/badge/grade.svg" alt="DeepScan grade"></a>
     </div>
 </div>
 
-## En qué consiste este proyecto
+## 🤔 What does this project consist of?
+This project is a starting point for you to develop a scalable web API with Node and TypeScript, and was implemented following the ideas of layered architecture, clean architecture and domain-driven design. While it contains an opinionated design and structure, it was built to be extensible and flexible, so you can modify and adapt it according to your team's needs and preferences.
 
-Este proyecto es un punto de partida para que desarrolles una API web de forma escalable con Node y TypeScript, y fue implementado siguiendo las ideas de la arquitectura por capas, la arquitectura limpia y el diseño dirigido por el dominio. Si bien contiene un diseño y una estructura opinables, fue construido para ser extensible y flexible, de modo que puedas modificarlo y adaptarlo según las necesidades y preferencias de tu equipo.
+## 🧱 Technology Stack and Requirements
+- [TypeScript language](https://www.typescriptlang.org)
+- [NodeJs](https://nodejs.org/en/)
+- [Express](https://expressjs.com/)
+- [Prisma](https://www.prisma.io)
+- [Jest](https://jestjs.io)
+- [Docker](https://www.docker.com)
+- [Docker-compose](https://docs.docker.com/compose/)
+- [PostgresSQL](https://www.postgresql.org)
+
+## 🚀 Quick Start
+### With Docker Compose
+- Clone the repository
+- Make sure you have [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) installed
+- Create a `.env` file in the root directory of the project and copy the contents of the `.env.sample` file into it
+- Run `docker-compose up -d` to start the application
+- Run `npm run prisma:migrate` to run the migrations
+- Run `npm run dev` to start the application in development mode
+- Enjoy 🎉
