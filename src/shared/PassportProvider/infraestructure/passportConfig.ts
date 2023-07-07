@@ -1,17 +1,11 @@
 import passport from "passport";
-import { FindUser } from "@/core/User/application/repositoryImplementations/FindUser";
-import { PrismaUserRepository } from "@/core/User/infraestructure/repositorys/PrismaUserRepository";
-import { PrismaProvider } from "@/main/providers/PrismaProvider";
 import { UserJwt } from "@/core/User/infraestructure/strategys/UserJwt";
 import { UnauthorizedError } from "@/shared/CustomErrors/CustomErrors";
+import { UserRespositorysContainer } from "@/core/User/infraestructure/containers/UserRespositorysContainer";
 
-const repository = PrismaUserRepository(PrismaProvider);
+passport.use("jwt-user", UserJwt(UserRespositorysContainer.findUserImp));
 
-const findUserImp = FindUser(repository);
-
-passport.use("jwt-user", UserJwt(findUserImp));
-
-export const passportUserMiddleware = passport.authenticate("jwt-user", { session: false }, (err, user, info) => {
+export const passportUserMiddleware = passport.authenticate("jwt-user", { session: false }, (err, user) => {
   if (err || !user) {
     throw new UnauthorizedError("UnauthorizedError");
   }

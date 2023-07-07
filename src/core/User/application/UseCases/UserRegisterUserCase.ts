@@ -9,10 +9,10 @@ export const UserRegisterUserCase: TUserRegisterUserCase = (ResponseLogger, hash
 
     await saveUserImp(req.body);
 
-    ResponseLogger(StatusCodes.CREATED, "User created", null);
+    return ResponseLogger(StatusCodes.CREATED, "User created", null);
   } catch (error) {
     if (error instanceof Error) {
-      ResponseLogger(StatusCodes.BAD_REQUEST, error.message, null);
+      return ResponseLogger(StatusCodes.BAD_REQUEST, error.message, null);
     }
   }
 };

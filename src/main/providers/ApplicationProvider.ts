@@ -6,10 +6,11 @@ import { init as initLocals } from "./LocalsProvider";
 import { RegisterRoutes } from "./RouterProvider";
 import ErrorHandlerProvider from "./ErrorHandlerProvider";
 import passport from "passport";
+import http from "http";
 
-let httpServer: Express;
+let httpServer: http.Server;
 
-export const ApplicationProvider = (logger: ILogger, inTest = false) => (): Promise<Express> => {
+export const ApplicationProvider = (logger: ILogger, inTest = false) => (): Express => {
   const app = express();
   const router = Router();
 
