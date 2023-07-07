@@ -5,11 +5,21 @@ import Router from "express-promise-router";
 import { init as initLocals } from "./LocalsProvider";
 import { RegisterRoutes } from "./RouterProvider";
 import ErrorHandlerProvider from "./ErrorHandlerProvider";
-let httpServer: Express;
+import passport from "passport";
+import http from "http";
 
-export const ApplicationProvider = (logger: ILogger, inTest = false) => (): Promise<Express> => {
+export const server = {
+  httpServer: null as http.Server | null,
+};
+
+
+export const ApplicationProvider = (logger: ILogger, inTest = false) => (): Express => {
   const app = express();
   const router = Router();
+
+  require("./../../shared/PassportProvider/infraestructure/passportConfig");
+  app.use(passport.initialize());
+
 
   initLocals(app);
   HttpMiddlewareProvider(app, logger)();
@@ -22,9 +32,10 @@ export const ApplicationProvider = (logger: ILogger, inTest = false) => (): Prom
   app.use(ErrorHandlerProvider.clientErrorHandler());
   app.use(ErrorHandlerProvider.errorHandler());
 
+
   const port = process.env.PORT;
   if (!inTest) {
-    httpServer = app.listen(
+    server.httpServer = app.listen(
       port,
       () => logger.info(`Server is running at http://localhost:${port}/`)
     );
@@ -34,9 +45,9 @@ export const ApplicationProvider = (logger: ILogger, inTest = false) => (): Prom
 
 export const stopServer = async (): Promise<void> => {
   // Detener el servidor Express si está en ejecución
-  if (httpServer) {
+  if (server.httpServer) {
     await new Promise<void>((resolve, reject) => {
-      httpServer.close((err) => {
+      server.httpServer!.close((err) => {
         if (err) {
           console.error("Error al detener el servidor Express:", err);
           reject(err);

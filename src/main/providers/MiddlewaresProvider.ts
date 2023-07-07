@@ -5,9 +5,7 @@ import helmet from "helmet";
 import cors from "cors";
 import compress from "compression";
 
-export const HttpMiddlewareProvider = (express: Application, logger: ILogger) => (): Application => {
-    logger.info("Loading HTTP middlewares...");
-    // body-parser
+export const HttpMiddlewareProvider = (express: Application, _: ILogger) => (): Application => {
     express.use(bodyParser.urlencoded({
         limit: "10mb",
         parameterLimit: 3000,

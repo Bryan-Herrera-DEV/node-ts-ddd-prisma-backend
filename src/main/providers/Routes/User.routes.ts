@@ -1,15 +1,11 @@
-import { UserRegisterUserCase } from "@/core/User/application/UseCases/UserRegisterUserCase";
-import { PrismaUserRepository } from "@/core/User/infraestructure/repositorys/PrismaUserRepository";
-import { SaveUser } from "@/core/User/application/repositoryImplementations/SaveUser";
-
-import { Request, Response, Router } from "express";
-import { PrismaProvider } from "../PrismaProvider";
-import { ResponseProvider } from "@/shared/providers/Response/infraestructure/Response";
+import { NextFunction, Request, Response, Router } from "express";
+import { passportUserMiddleware } from "@/shared/PassportProvider/infraestructure/passportConfig";
 import { UserRegisterDto } from "@/core/User/infraestructure/DTOs/UserRegisterDto";
-
-const repository = PrismaUserRepository(PrismaProvider);
-
-const saveUserImp = SaveUser(repository);
+import { UserLoginDto } from "@/core/User/infraestructure/DTOs/UserLoginDto";
+import { UserCasesContainer } from "@/core/User/infraestructure/containers/UserCasesContainer";
+import {
+  decode
+} from "jsonwebtoken";
 
 export const register = (router: Router) => {
   if (process.env.NODE_ENV !== "prod") {
@@ -40,5 +36,11 @@ export const register = (router: Router) => {
       throw new CustomError("Test custom error");
     });
   }
-  router.post("/register", UserRegisterDto, (req: Request, res: Response) => UserRegisterUserCase(ResponseProvider(res), saveUserImp)(req));
+  router.post("/register", UserRegisterDto, (req: Request, res: Response) => UserCasesContainer.userRegisterUserCase(req, res));
+  router.post("/login", UserLoginDto, (req: Request, res: Response) => UserCasesContainer.userLoginUserCase(req, res));
+  router.get("/test-two", async (req: Request, res: Response, next: NextFunction) => {
+    passportUserMiddleware(req, res, next);
+    const user = await decode(req.headers.authorization!.split(" ")[1]);
+    res.status(200).json(user);
+  });
 };

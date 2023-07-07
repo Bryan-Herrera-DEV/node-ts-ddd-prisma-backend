@@ -1,9 +1,7 @@
 import { body, validationResult } from "express-validator";
 
-export const UserRegisterDto = [
+export const UserLoginDto = [
   body("email").isEmail().withMessage("Must be a valid email"),
-  body("name").isString().withMessage("Name must be a string"),
-  body("lastname").isString().withMessage("Last name must be a string"),
   body("password").isString().withMessage("Password must be a string"),
   (req, res, next) => {
     const errors = validationResult(req);
