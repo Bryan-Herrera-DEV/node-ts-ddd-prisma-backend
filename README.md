@@ -20,6 +20,7 @@
       <a align="center" href="https://github.com/Bryan-Herrera-DEV/node-ts-ddd-prisma-backend/blob/main/LICENSE.md">
         <img alt="License" src="https://img.shields.io/github/license/bryan-herrera-dev/node-ts-ddd-prisma-backend.svg">
       </a>
+      <a href="https://deepscan.io/dashboard#view=project&tid=21638&pid=25046&bid=776814"><img src="https://deepscan.io/api/teams/21638/projects/25046/branches/776814/badge/grade.svg" alt="DeepScan grade"></a>
     </div>
 </div>
 
