@@ -20,9 +20,11 @@ export const UserLoginUserCase: TUserLoginUserCase = (ResponserProvider, compare
     if (!isMatch) {
       return ResponserProvider(400, "Invalid credentials", null);
     }
-    const token = await createJwt<Nullable<IUserBase>>(user);
+    const token = await createJwt<Nullable<IUserBase>>({
+      id: user.id
+    });
 
-    return ResponserProvider(200, "User logged", { user, token });
+    return ResponserProvider(200, "User logged", { token });
   } catch (error) {
     if (error instanceof Error) {
       return ResponserProvider(400, error.message, null);

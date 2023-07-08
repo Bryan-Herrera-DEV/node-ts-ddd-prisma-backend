@@ -4,6 +4,7 @@ import { hashProvider } from "@/shared/providers/HashProvider/infraestructure/ha
 import { hash } from "bcrypt";
 
 import { Request } from "express";
+import { disconnect } from "@/main/providers/RedisProvider";
 
 describe("UserRegisterUserCase", () => {
   let ResponseLoggerMock: jest.Mock;
@@ -62,4 +63,7 @@ describe("UserRegisterUserCase", () => {
     // Verificar que ResponseLoggerMock fue llamado con los argumentos correctos
     expect(ResponseLoggerMock).toHaveBeenCalledWith(StatusCodes.BAD_REQUEST, error.message, null);
   });
+});
+afterAll(async () => {
+  await disconnect()
 });

@@ -13,7 +13,7 @@ export const server = {
 };
 
 
-export const ApplicationProvider = (logger: ILogger, inTest = false) => (): Express => {
+export const ApplicationProvider = (logger: ILogger, inTest = false) => async (): Promise<Express> => {
   const app = express();
   const router = Router();
 

@@ -3,9 +3,6 @@ import { passportUserMiddleware } from "@/shared/PassportProvider/infraestructur
 import { UserRegisterDto } from "@/core/User/infraestructure/DTOs/UserRegisterDto";
 import { UserLoginDto } from "@/core/User/infraestructure/DTOs/UserLoginDto";
 import { UserCasesContainer } from "@/core/User/infraestructure/containers/UserCasesContainer";
-import {
-  decode
-} from "jsonwebtoken";
 
 export const register = (router: Router) => {
   if (process.env.NODE_ENV !== "prod") {
@@ -38,9 +35,8 @@ export const register = (router: Router) => {
   }
   router.post("/register", UserRegisterDto, (req: Request, res: Response) => UserCasesContainer.userRegisterUserCase(req, res));
   router.post("/login", UserLoginDto, (req: Request, res: Response) => UserCasesContainer.userLoginUserCase(req, res));
-  router.get("/test-two", async (req: Request, res: Response, next: NextFunction) => {
+  router.get("/get-my-profile", async (req: Request, res: Response, next: NextFunction) => {
     passportUserMiddleware(req, res, next);
-    const user = await decode(req.headers.authorization!.split(" ")[1]);
-    res.status(200).json(user);
+    return UserCasesContainer.userGetProfileUserCase(req, res);
   });
 };
