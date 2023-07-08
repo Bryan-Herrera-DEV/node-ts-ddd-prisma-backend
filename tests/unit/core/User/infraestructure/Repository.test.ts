@@ -1,4 +1,5 @@
 import { PrismaUserRepository } from "@/core/User/infraestructure/repositorys/PrismaUserRepository";
+import { disconnect } from "@/main/providers/RedisProvider";
 import { PrismaClient, Prisma } from "@prisma/client";
 
 // Mocking uuidv4()
@@ -55,4 +56,7 @@ describe("PrismaUserRepository", () => {
       "Invalid input: criteria must be an array of Filters"
     );
   });
+});
+afterAll(async () => {
+  await disconnect()
 });

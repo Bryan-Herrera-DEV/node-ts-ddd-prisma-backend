@@ -36,6 +36,7 @@ This project is a starting point for you to develop a scalable web API with Node
 - [Docker](https://www.docker.com)
 - [Docker-compose](https://docs.docker.com/compose/)
 - [PostgresSQL](https://www.postgresql.org)
+- [Redis](https://redis.io)
 
 ## 🚀 Quick Start
 ### With Docker Compose
