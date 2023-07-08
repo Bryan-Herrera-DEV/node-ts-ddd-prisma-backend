@@ -5,6 +5,7 @@ import { UserGetProfileUserCase } from "@/core/User/application/UseCases/UserGet
 import { TResponseLoggerImp } from "@/shared/providers/Response/domain/IResponse";
 import { Response } from "express";
 import { UserLoginUserCase } from "@/core/User/application/UseCases/UserLoginUserCase";
+import { disconnect } from "@/main/providers/RedisProvider";
 
 const app = ApplicationProvider(consoleLogger, true)();
 const randomText = Math.random().toString(36).replace(/[^a-z]+/g, "");
@@ -161,4 +162,8 @@ describe("GET /get-my-profile", () => {
 
     expect(result!.status).toBe(400);
   });
+});
+
+afterAll(async () => {
+  await disconnect()
 });

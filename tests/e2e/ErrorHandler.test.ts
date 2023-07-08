@@ -1,6 +1,7 @@
 import request from "supertest";
 import { ApplicationProvider } from "@/main/providers/ApplicationProvider";
 import { consoleLogger } from "@/shared/providers/Logger/infraestructure/ConsoleLogger";
+import { disconnect } from "@/main/providers/RedisProvider";
 
 const app = ApplicationProvider(consoleLogger, true)();
 
@@ -41,3 +42,7 @@ describe("ErrorHandler", () => {
     expect(response.body.message).toBe('Something went wrong');
   });
 })
+
+afterAll(async () => {
+  await disconnect()
+});

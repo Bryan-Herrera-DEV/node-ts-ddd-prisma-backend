@@ -1,4 +1,5 @@
 import { ApplicationProvider, stopServer } from "@/main/providers/ApplicationProvider";
+import { disconnect } from "@/main/providers/RedisProvider";
 import { consoleLogger } from "@/shared/providers/Logger/infraestructure/ConsoleLogger";
 
 describe("ApplicationProvider", () => {
@@ -19,4 +20,5 @@ describe("ApplicationProvider", () => {
 
 afterAll(async () => {
   await stopServer();
+  await disconnect()
 });
