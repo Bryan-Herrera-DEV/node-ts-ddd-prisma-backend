@@ -14,12 +14,6 @@ jobs:
   build:
     name: Estilo de código y pruebas
     runs-on: ubuntu-latest
-    env:
-      PORT: 3001
-      NODE_ENV: dev
-      APP_SECRET: "-QV.LlñvjQñÑñ8;5ñ#jyLñl;sY;jlyy8-;DjJYlDdddÑ@2Q;gd6;53d88;583@299QQ@Y3yqlÑqD+y"
-      API_PREFIX: api
-      DATABASE_URL: "postgresql://dev:devtest@localhost:5432/postgres?schema=public"
     services:
       postgres:
         image: postgres:latest
@@ -31,8 +25,19 @@ jobs:
           - 5432:5432
         # Health check
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
-
+      redis:
+        image: redis:latest
+        ports:
+          - 6379:6379
+        # Health check
+        options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      PORT: 3001
+      NODE_ENV: dev
+      APP_SECRET: "-QV.LlñvjQñÑñ8;5ñ#jyLñl;sY;jlyy8-;DjJYlDdddÑ@2Q;gd6;53d88;583@299QQ@Y3yqlÑqD+y"
+      API_PREFIX: api
+      DATABASE_URL: "postgresql://dev:devtest@localhost:5432/postgres?schema=public"
+      REDIS_URL: "redis://localhost:6379"
     steps:
       - uses: actions/checkout@v3
 
@@ -43,7 +48,7 @@ jobs:
 
       - name: 📦 Instalando Dependencias
         run: npm i
-        
+
       - name: ⚙️ Generando cliente Prisma
         run: npx prisma generate
 
@@ -55,7 +60,7 @@ jobs:
 
       - name: 💄 Estilo de codigo
         run: npm run style
-        
+
       - name: 🌐 Enviando Reporte de Cobertura a Codacy
         uses: codacy/codacy-coverage-reporter-action@v1
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
