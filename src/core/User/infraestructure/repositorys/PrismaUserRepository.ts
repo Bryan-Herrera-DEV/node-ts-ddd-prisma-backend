@@ -40,10 +40,7 @@ export const PrismaUserRepository = (
     if (!user) {
       return null;
     }
-
-    if (user) {
-      await setCache(CustomRedisClient, cacheKey, JSON.stringify(user), { EX: 3600 });
-    }
+    await setCache(CustomRedisClient, cacheKey, JSON.stringify(user), { EX: 3600 });
     return user;
   },
   // async update(id: string, user) {
