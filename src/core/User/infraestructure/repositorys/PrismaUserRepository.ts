@@ -4,6 +4,9 @@ import { v4 as uuidv4 } from "uuid";
 import { Filter, operatorEnum } from "@/shared/Types/IFilter";
 import { IUserBase } from "../../domain/IUser";
 
+import CustomRedisClient from "@/main/providers/RedisProvider";
+import { getCache, setCache } from "@/shared/providers/Cache/infraestructure/Cache";
+
 export const PrismaUserRepository = (
   client: PrismaClient
 ): IUserRepository => ({
@@ -25,10 +28,34 @@ export const PrismaUserRepository = (
     if (!Array.isArray(criteria) || !criteria.every(isFilter)) {
       throw new Error("Invalid input: criteria must be an array of Filters");
     }
-    const traking = await client.user.findFirst({
+    const cacheKey = criteriaConverterToCacheKey(criteria);
+    const cachedResult = await getCache<IUserBase>(CustomRedisClient, cacheKey);
+    if (cachedResult) {
+      return cachedResult;
+    }
+    const user = await client.user.findFirst({
       where: criteriaConverter(criteria),
     });
-    return traking;
+    if (user) {
+      await setCache(CustomRedisClient, cacheKey, JSON.stringify(user), { EX: 3600 });
+    }
+    return user;
+  },
+  async update(id: string, user) {
+    const updatedUser = await client.user.update({
+      where: { id },
+      data: {
+        name: user.name,
+        lastname: user.lastname,
+        updatedAt: new Date().toISOString(),
+      }
+    });
+
+    // Invalidate the cache for this user
+    const cacheKey = userToCacheKey({ id });
+    await CustomRedisClient.del(cacheKey);
+
+    return updatedUser;
   },
 });
 
@@ -48,3 +75,10 @@ const criteriaConverter = (criteria: Filter<IUserBase>[]) => {
     {}
   );
 };
+const criteriaConverterToCacheKey = (criteria: Filter<IUserBase>[]) => {
+  return criteria.reduce(
+    (acc, filter) => `${acc}${filter.field}:${filter.value}:`,
+    "user:"
+  );
+};
+const userToCacheKey = (user: { id: string }) => `user:id:${user.id}`;

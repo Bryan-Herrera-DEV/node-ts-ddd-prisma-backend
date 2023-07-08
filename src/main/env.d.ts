@@ -4,5 +4,6 @@ declare namespace NodeJS {
         NODE_ENV: "dev" | "prod";
         APP_SECRET: string;
         API_PREFIX: string;
+        REDIS_URL: string;
     }
 }

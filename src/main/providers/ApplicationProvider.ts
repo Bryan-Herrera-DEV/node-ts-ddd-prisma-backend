@@ -7,13 +7,14 @@ import { RegisterRoutes } from "./RouterProvider";
 import ErrorHandlerProvider from "./ErrorHandlerProvider";
 import passport from "passport";
 import http from "http";
+import "./RedisProvider";
 
 export const server = {
   httpServer: null as http.Server | null,
 };
 
 
-export const ApplicationProvider = (logger: ILogger, inTest = false) => (): Express => {
+export const ApplicationProvider = (logger: ILogger, inTest = false) => async (): Promise<Express> => {
   const app = express();
   const router = Router();
 

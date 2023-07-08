@@ -15,7 +15,7 @@ const mockUser = {
 
 describe("POST /register", () => {
   it("should register a new user", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .post("/register")
       .send(mockUser);
 
@@ -24,7 +24,7 @@ describe("POST /register", () => {
   });
 
   it("should fail to register a new user with invalid email", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .post("/register")
       .send({
         email: `${randomText}test@example.com`,
@@ -35,7 +35,7 @@ describe("POST /register", () => {
   });
 
   it("should fail to register a new user with invalid name", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .post("/register")
       .send({
         email: ``
@@ -47,7 +47,7 @@ describe("POST /register", () => {
 describe("POST /login", () => {
   let JWT = "";
   it("should login user", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .post("/login")
       .send({
         email: mockUser.email,
@@ -60,7 +60,7 @@ describe("POST /login", () => {
   });
 
   it("should fail to login user with invalid credentials", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .post("/login")
       .send({
         email: mockUser.email,
@@ -69,13 +69,13 @@ describe("POST /login", () => {
     expect(response.status).toBe(400); // Espera un estado HTTP 400 (BAD REQUEST)
   });
   it("should fail to login user with invalid params", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .post("/login")
       .send();
     expect(response.status).toBe(400); // Espera un estado HTTP 400 (BAD REQUEST)
   });
   it("should fail to find user", async () => {
-    const response = await request(app)
+    const response = await request(await app)
       .post("/login")
       .send({
         email: "invalid@gmail.com",
@@ -84,15 +84,15 @@ describe("POST /login", () => {
     expect(response.status).toBe(404); // Espera un estado HTTP 400 (BAD REQUEST)
   });
   it("should fail access protected route", async () => {
-    const response = await request(app)
-      .get("/test-two")
+    const response = await request(await app)
+      .get("/get-my-profile")
       .set('Authorization', `Bearer ${JWT}failed`);
 
     expect(response.status).toBe(401);
   });
   it("should access protected route", async () => {
-    const response = await request(app)
-      .get("/test-two")
+    const response = await request(await app)
+      .get("/get-my-profile")
       .set('Authorization', `Bearer ${JWT}`)
 
     expect(response.status).toBe(200);
