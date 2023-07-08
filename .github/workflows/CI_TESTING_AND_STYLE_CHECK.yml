@@ -56,7 +56,7 @@ jobs:
         run: npx prisma db push --preview-feature
 
       - name: 🧪 Corriendo Todos los Test
-        run: npm run test -- --detectOpenHandles
+        run: npm run test
 
       - name: 💄 Estilo de codigo
         run: npm run style
