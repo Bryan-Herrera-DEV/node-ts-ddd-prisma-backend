@@ -19,6 +19,6 @@ describe("ApplicationProvider", () => {
 });
 
 afterAll(async () => {
-  await stopServer();
   await disconnect()
+  await stopServer();
 });

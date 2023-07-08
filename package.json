@@ -7,7 +7,7 @@
     "style": "npm run lint -- --fix",
     "build": "tsc",
     "start": "node ./dist/server.js",
-    "test": "jest --no-cache",
+    "test": "jest --no-cache --forceExit --logHeapUsage --debug --detectOpenHandles",
     "test-changed": "jest --onlyChanged",
     "prepare": "husky install"
   },

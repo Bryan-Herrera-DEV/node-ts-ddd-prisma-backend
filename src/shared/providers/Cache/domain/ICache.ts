@@ -1,5 +1,5 @@
 import { RedisClientType } from "@/main/providers/RedisProvider";
-import { RedisCommandArgument } from "@node-redis/client/dist/lib/commands";
+import { RedisCommandArgument } from "@redis/client/dist/lib/commands";
 
 declare type MaximumOneOf<T, K extends keyof T = keyof T> = K extends keyof T
   ? {
