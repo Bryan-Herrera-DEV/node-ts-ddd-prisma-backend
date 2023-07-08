@@ -6,13 +6,10 @@ export const UserGetProfileUserCase: TUserGetProfileUserCase = (ResponserProvide
   try {
     const { id } = await decode(req.headers.authorization!.split(" ")[1]) as IUserBase & { iat: number };
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...rest } = await FindUser([
       { field: "id", operator: operatorEnum.EQUAL, value: id },
     ]) as IUserBase;
-
-    if (!rest || !password) {
-      return ResponserProvider(404, "Profile Not Found", null);
-    }
 
     return ResponserProvider(200, "User profile", rest);
   } catch (error) {

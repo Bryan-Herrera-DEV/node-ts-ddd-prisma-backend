@@ -36,27 +36,32 @@ export const PrismaUserRepository = (
     const user = await client.user.findFirst({
       where: criteriaConverter(criteria),
     });
+
+    if (!user) {
+      return null;
+    }
+
     if (user) {
       await setCache(CustomRedisClient, cacheKey, JSON.stringify(user), { EX: 3600 });
     }
     return user;
   },
-  async update(id: string, user) {
-    const updatedUser = await client.user.update({
-      where: { id },
-      data: {
-        name: user.name,
-        lastname: user.lastname,
-        updatedAt: new Date().toISOString(),
-      }
-    });
+  // async update(id: string, user) {
+  //   const updatedUser = await client.user.update({
+  //     where: { id },
+  //     data: {
+  //       name: user.name,
+  //       lastname: user.lastname,
+  //       updatedAt: new Date().toISOString(),
+  //     }
+  //   });
 
-    // Invalidate the cache for this user
-    const cacheKey = userToCacheKey({ id });
-    await CustomRedisClient.del(cacheKey);
+  //   // Invalidate the cache for this user
+  //   const cacheKey = userToCacheKey({ id });
+  //   await CustomRedisClient.del(cacheKey);
 
-    return updatedUser;
-  },
+  //   return updatedUser;
+  // },
 });
 
 const isFilter = (obj: Filter<IUserBase>): obj is Filter<IUserBase> =>
@@ -81,4 +86,4 @@ const criteriaConverterToCacheKey = (criteria: Filter<IUserBase>[]) => {
     "user:"
   );
 };
-const userToCacheKey = (user: { id: string }) => `user:id:${user.id}`;
+// const userToCacheKey = (user: { id: string }) => `user:id:${user.id}`;

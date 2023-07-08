@@ -11,8 +11,4 @@ export type RedisClientType = typeof CustomRedisClient;
   await CustomRedisClient.connect();
 })();
 
-process.on("SIGINT", async () => {
-  await CustomRedisClient.disconnect();
-});
-
 export default CustomRedisClient;
